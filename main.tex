@@ -1,0 +1,63 @@
+
+\title{Removal of Particle Noise in Underwater Images}
+\author{Malin Kildal}
+\date{\today}
+
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{caption}
+\usepackage{subcaption}
+
+
+\makeatletter % Set distance from top of page to first float
+\setlength{\@fptop}{5pt}
+\makeatother
+
+
+\begin{document}
+\maketitle
+\newpage
+
+\begin{abstract}
+This report discusses how how to improve underwater images of salmon. This is a relevant problem for the salmon breeding industry, as further image processing could be used to measure the size and weight of the fish. It could also be an opportunity to detect sick fish.
+
+The main focus of this study is to remove irrelevant data from the image, while preserving the main object.
+The image material will be both 2D and 3D, and the goal is for the size measurements to be more accurate after this image processing than before.
+
+The report will show different image processing techniques that can be used to remove particles and noise. To measure the weight of the fish, both length, height and thickness measurements are needed. To achieve accurate measurements the result should be a clear image, where the depth measurements shows a smooth surface on the fish.
+
+\end{abstract}
+\clearpage
+
+
+\tableofcontents
+\clearpage
+
+
+\input{introduction}
+\clearpage
+
+\input{overview_of_literature}
+\clearpage
+
+\input{aim_of_study}
+\clearpage
+
+\input{methods_and_implementation}
+\clearpage
+
+\input{experiments}
+\clearpage
+
+\input{conclusion}
+\clearpage
+
+
+\bibliographystyle{abbrv}
+\bibliography{main}
+
+\end{document}
+
+  
