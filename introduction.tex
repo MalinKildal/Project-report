@@ -8,6 +8,44 @@ With the use of image processing for noise and particle removal, it is reasonabl
 
 This report will show relevant background study with explanations to the different techniques that have been tried out. It will show implementation and results from different approaches. All image processing done throughout this project is done through the use of C++ and OpenCV library. OpenCV (Open Source Computer Vision) is a library of programming functions mainly aimed at real-time computer vision. \footnote{https://en.wikipedia.org/wiki/OpenCV}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Image processing simple intro??}
 
-\subsection{Camera used??}
+{\color{red}Add image examples}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The Raytrix Camera}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.9\linewidth]{Images/raytrix_camera}
+    \caption{Raytrix R42 Camera}
+    \label{fig:raytrix_camera}
+\end{figure}
+
+The camera used throughout this project is the Raytrix R42 camera. The camera is developed by Raytrix, a German company which offers several 3D Light Field cameras intended for professional and industrial use. The R42 is their highest resolving light field camera to date. It is based on a 42 megaray sensor and offers an effective resolution up to 10 megapixels at 7 fps. \footnote{https://www.raytrix.de/produkte/#r42series}
+
+Light Field cameras are a new type of 3D-cameras that capture a standard image together with the depth information of a scene. Metric 3D information can be captured with a single light field camera through a single lens in a single shot using just the available light. Raytrix has specialized on developing light field cameras for industrial applications. A patented micro lens array design allows for an optimal compromise between high effective resolution and large depth of field. Raytrix cameras are already in use in applications like volumetric velocimetry, plant phenotyping, automated optical inspection and microscopy, to name a few. \footnote{https://www.raytrix.de/}
+
+This camera is therefore very useful for industrial purposes, as you can get both a clear image, and a depth map with a 3D model of the scene. It has though no documented use underwater, and since the physical properties of water cause degradation effects not present in air, the depth measurements get affected. We get both "holes" in the fish, and particles in front of the fish. If we are going to use this camera technology to measure volume of fish, we need to to improve the data received from the camera. Particles in front of the fish needs to be removed, and holes in the fish filled.
+
+{\color{red}Add image examples of 3D in raytrix}
+
+As seen from the 3D image produced in the Raytrix Software, the particles in front will affect the surface of the fish. The same goes for the holes in the fish. What is wanted is a smooth surface of the fish, so that measurements of length, height and thickness is most accurate. 
+One problem working with the depthmap images is that they have their own .ray format. It is not yet possible to do direct image processing using OpenCV on this format, so we therefore convert the depthmap images to .png images before starting to work on the enhancement.
+
+{\color{red}Add image examples of color depth map}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.9\linewidth]{Images/depthmap_raytrix}
+    \caption{Example of depthmap image}
+    \label{fig:raytrix_depthmap}
+\end{figure}
+
+The depthmap image looks like the one i figure \ref{fig:raytrix_depthmap}. The depth is represented in colors, where red is close to the camera, yellow and green is the object centered during calibration, blue is behind the object, and black has no depth. This means that the optimal depthmap image would be all black, with a yellow fish.
+
+
+{\color{red}Explain more about how the Raytrix measures depth?? Explain the calibration and the RAW image??}
