@@ -2,7 +2,7 @@
 
 \subsection{Motivation}\label{motivation}
 The work done in this report is done in cooperation with Sensomar SEALAB.
-Sensomar SEALAB is a company developing camera systems for underwater use. Most of this is planned to be used in the fishing industry, especially aimed towards salmon breeding industry. The company's current goal is to be able to automatically measure the size and weight of the salmon underwater. For this goal to be reached, SEALAB uses some of the best cameras available, that has very high resolution and a very accurate depth measurement. But, due to all particles in the water, other fish in the background and light reflections, it is still not possible to use the data directly to find accurate measurements of the fish. They therefore need to both detect the fish, to be able to take a good photo, and they will need quite a bit of image processing on that image to remove all irrelevant data before they can find the measurements of the fish. 
+Sensomar SEALAB is a company developing camera systems for underwater use. Most of this is planned to be used in the fishing industry, especially aimed towards salmon breeding industry. The company's current goal is to be able to automatically measure the size and volume of the salmon underwater. For this goal to be reached, SEALAB uses some of the best cameras available, that has very high resolution and a very accurate depth measurement. But, due to all particles in the water, other fish in the background and light reflections, it is still not possible to use the data directly to find accurate measurements of the fish. They therefore need to both detect the fish, to be able to take a good photo, and they will need quite a bit of image processing on that image to remove all irrelevant data before they can find the measurements of the fish. 
 
 With the use of image processing for noise and particle removal, it is reasonable to believe that the size measurements of the fish could be improved.
 
@@ -10,7 +10,31 @@ This report will show relevant background study with explanations to the differe
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Image processing simple intro??}
+\subsection{Introduction to Digital Image Processing}
+
+Digital image processing is the use of computer algorithms to perform some processing on a digital image. 
+Digital images are represented as a two-dimensional function, f(x,y), where x and y are plane (spatial) coordinates each representing one pixel. Each pixel has a finite value that represents the intensity, or color. To represent a color, OpenCV use the BGR color space. That means that each pixel contains an array with 3 values, [Blue, Green, Red], where the values are normally an integer between 0 and 255. The BGR color space is shown in figure \ref{fig:bgr_color_space}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.9\linewidth]{Images/RGB_color_solid_cube}
+    \caption{BGR color space}
+    \label{fig:bgr_color_space}
+\end{figure}
+
+
+Digital image processing has many areas of use, listed below are some of the most important ones:
+\begin{itemize}
+\item Visualization - observe objects that are not visible.
+\item Classification - decide what kind of object is in the image.
+\item Image sharpening or restoration - enhance the image quality.
+\item Pattern recognition - used in machine learning to recognize patterns and regularities in the image data.
+\item Projection - image of a three-dimensional object is projected into a planar surface. Used in technical drawing.
+\item Linear filtering - filter out data from images.
+\end{itemize}
+ 
+
+\cite{book:digital_image_processing}
 
 {\color{red}Add image examples}
 
