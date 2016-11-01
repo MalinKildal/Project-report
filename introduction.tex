@@ -11,17 +11,17 @@ This report will show relevant background study with explanations to the differe
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Introduction to Digital Image Processing}
-
-Digital image processing is the use of computer algorithms to perform some processing on a digital image. 
-Digital images are represented as a two-dimensional function, f(x,y), where x and y are plane (spatial) coordinates each representing one pixel. Each pixel has a finite value that represents the intensity, or color. To represent a color, OpenCV use the BGR color space. That means that each pixel contains an array with 3 values, [Blue, Green, Red], where the values are normally an integer between 0 and 255. The BGR color space is shown in figure \ref{fig:bgr_color_space}.
+ 
+Digital images are represented as a two-dimensional function, f(x,y), where x and y are plane (spatial) coordinates each representing one pixel. Each pixel has a finite value that represents the intensity, colors, depth, gray levels etc. To represent a color, OpenCV use the BGR color space. That means that each pixel contains an array with 3 values, [Blue, Green, Red], where the values are normally an integer between 0 and 255. The BGR color space is shown in figure \ref{fig:bgr_color_space}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{Images/RGB_color_solid_cube}
+    \includegraphics[width=.9\linewidth]{images/introduction/RGB_color_solid_cube}
     \caption{BGR color space}
     \label{fig:bgr_color_space}
 \end{figure}
 
+Digital image processing is the use of computer algorithms to perform some processing on a digital image. Through the use of image processing it is possible to achieve simple things as changing the color space, to more advanced things as object recognition and scene understanding. Digital image processing is used today for important tasks as medical visualisation and industrial inspection, but also just as filters on Instagram to make someone look tanner. 
 
 Digital image processing has many areas of use, listed below are some of the most important ones:
 \begin{itemize}
@@ -45,7 +45,7 @@ Digital image processing has many areas of use, listed below are some of the mos
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{Images/raytrix_camera}
+    \includegraphics[width=.9\linewidth]{images/introduction/raytrix_camera}
     \caption{Raytrix R42 Camera}
     \label{fig:raytrix_camera}
 \end{figure}
@@ -60,7 +60,7 @@ The Raytrix camera is build up by a main lens in front, a micro lens array, and 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{Images/Light-Field-Camera-Schematic}
+    \includegraphics[width=.9\linewidth]{images/introduction/Light-Field-Camera-Schematic}
     \caption{Raytrix Light Field Technology}
     \label{fig:light_field}
 \end{figure}
@@ -74,28 +74,28 @@ The depth in the depthmap is represented by colors, where red is close to the ca
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{Images/raw}
+    \includegraphics[width=.9\linewidth]{images/introduction/raw}
     \caption{Raw image}
     \label{fig:raw_image}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{Images/totalfocus}
+    \includegraphics[width=.9\linewidth]{images/introduction/totalfocus}
     \caption{Totalfocus image}
     \label{fig:totalfocus}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{Images/depthmap}
+    \includegraphics[width=.9\linewidth]{images/introduction/depthmap}
     \caption{Depthmap image}
     \label{fig:depthmap}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{Images/depth3D}
+    \includegraphics[width=.9\linewidth]{images/introduction/depth3D}
     \caption{3D image}
     \label{fig:3d_image}
 \end{figure}
@@ -105,7 +105,7 @@ One problem working with the depthmap is that they have their own .ray format. I
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{Images/depth3D_side}
+    \includegraphics[width=.9\linewidth]{images/introduction/depth3D_side}
     \caption{3D image from the side}
     \label{fig:3d_image_side}
 \end{figure}
