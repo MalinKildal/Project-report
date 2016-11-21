@@ -79,6 +79,7 @@ From figure \ref{fig:bilateral_filter} it is possible to see that the edges are 
 
 
 \subsection{Shadow Removal}
+There are few open source algorithms for shadow removal. There are some advanced explanations for shadow removal, but they do not always work properly. Shadow removal can be useful when reconstructing an image or when detecting objects. 
 Simple shadow removal can be done by transforming the color space of the image from RBG to HSV and then setting the value component of each pixel to a constant value. What this really does is even out all grey tones in the image, as is shown in figure \ref{fig:shadow_removal}.
 
 \begin{figure}[h]
@@ -136,9 +137,9 @@ The shape of the structuring element can be chosen as flat or non-flat. Examples
 \noindent Ellipse: 
 $\begin{bmatrix}
     0 & 0 & 1 & 0 & 0 \\
-    0 & 1 & 1 & 1 & 0 \\
     1 & 1 & 1 & 1 & 1 \\
-    0 & 1 & 1 & 1 & 0 \\
+    1 & 1 & 1 & 1 & 1 \\
+    1 & 1 & 1 & 1 & 1 \\
     0 & 0 & 1 & 0 & 0
 \end{bmatrix}$ 
 Cross: 

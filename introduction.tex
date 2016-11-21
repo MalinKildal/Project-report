@@ -1,48 +1,38 @@
 \section{Introduction}\label{introduction}
 
 \subsection{Motivation}\label{motivation}
+
 The work done in this report is done in cooperation with Sensomar SEALAB.
-Sensomar SEALAB is a company developing camera systems for underwater use. Most of this is planned to be used in the fishing industry, especially aimed towards salmon breeding industry. The company's current goal is to be able to automatically measure the size and volume of the salmon underwater. For this goal to be reached, SEALAB uses some of the best cameras available, that has very high resolution and a very accurate depth measurement. But, due to all particles in the water, other fish in the background and light reflections, it is still not possible to use the data directly to find accurate measurements of the fish. They therefore need to both detect the fish, to be able to take a good photo, and they will need quite a bit of image processing on that image to remove all irrelevant data before they can find the measurements of the fish. 
+Sensomar SEALAB is a company developing camera systems for underwater use. Most of SEALABs technology is planned for use in the fishing industry, especially aimed towards salmon breeding industry. 
 
-With the use of image processing for noise and particle removal, it is reasonable to believe that the size measurements of the fish could be improved.
+The aquaculture industry has grown dramatically over the last decades, and the fishing industry has become more and more industrial. This industrialisation of fish breeding has made the production more profitable, but it has also caused the concentration of salmon lice to grow dramatically. With the use of good camera systems along with the right image processing it can be possible to detect the lice much earlier than now. 
 
-This report will show relevant background study with explanations to the different techniques that have been tried out. It will show implementation and results from different approaches. All image processing done throughout this project is done through the use of C++ and OpenCV library. OpenCV (Open Source Computer Vision) is a library of programming functions mainly aimed at real-time computer vision. \cite{website:opencv_wiki}
+Another challenge for the fish breeding companies is estimation of biomass. A grown salmons weight can vary from around two to ten kilos. This makes it hard for the companies to know the volume of fish they have in their cages at any time, and difficult to know how much fish they can sell. If they sell more fish then the cage contains they need to purchase fish from competitors at a steep price. The biomass estimation directly effects the profit, therefore, providing a solution for biomass estimation would very much benefit the companies. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+SEALABs current goal is to develop an advanced underwater camera system that can both detect salmon lice and measure biomass in the fish cages.
+The system currently used by SEALAB for the biomass estimation is the Raytrix R42 camera, a light field camera computing both 2D and 3D images with corresponding depth data in one frame. The camera is the best in its field. Features for the Raytrix R42 camera is explained is section \ref{the_raytrix_camera}. 
+The depthmap produced by the cameras software can be used to estimate the volume of an object. Depthmaps computed by the Raytrix is very accurate in air, but underwater, the depthmap is not as accurate. Reasons for this inaccuracy can come directly from the water mediums properties, it can depend on the lightning, the background and/or particles in the water. This means that even though the best available camera technology is used, the results directly is still not good enough for correct volume measurement.
 
-\subsection{Introduction to Digital Image Processing}
- 
-Digital images are represented as a two-dimensional function, f(x,y), where x and y are plane (spatial) coordinates each representing one pixel. Each pixel has a finite value that represents the intensity, colors, depth, gray levels etc. To represent a color, OpenCV use the BGR color space. That means that each pixel contains an array with 3 values, [Blue, Green, Red], where the values are normally an integer between 0 and 255. The BGR color space is shown in figure \ref{fig:bgr_color_space}.
+With the use of image processing for noise and particle removal, together with testing of different lightning and background conditions, it is reasonable to believe that the estimates for biomass of fish could be improved.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.9\linewidth]{images/introduction/RGB_color_solid_cube}
-    \caption{BGR color space}
-    \label{fig:bgr_color_space}
-\end{figure}
-
-Digital image processing is the use of computer algorithms to perform some processing on a digital image. Through the use of image processing it is possible to achieve simple things as changing the color space, to more advanced things as object recognition and scene understanding. Digital image processing is used today for important tasks as medical visualisation and industrial inspection, but also just as filters on Instagram to make someone look tanner. 
-
-Digital image processing has many areas of use, listed below are some of the most important ones:
-\begin{itemize}
-\item Visualization - observe objects that are not visible.
-\item Classification - decide what kind of object is in the image.
-\item Image sharpening or restoration - enhance the image quality.
-\item Pattern recognition - used in machine learning to recognize patterns and regularities in the image data.
-\item Projection - image of a three-dimensional object is projected into a planar surface. Used in technical drawing.
-\item Linear filtering - filter out data from images.
-\end{itemize}
-
-\cite{book:digital_image_processing, book:machine_vision}
-
-{\color{red}Add image examples???}
+This report shows the exploration of different processing possibilities done on data extracted from the Raytrix R42. Different testing conditions is explored, and a suggested solution is provided and tested.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{The Raytrix Camera}
 
-\begin{figure}[h]
+\subsection{Report Outline} \label{report_outline}
+
+First, section \ref{overview} describes the different approaches useful for solving the problem at hand. Next, the aim for this report is explained in section \ref{aim of study}, and the implementation of the presented solution is described in \ref{methods and implementation}, along with different tests. Results is presented in section \ref{results}, and section \ref{conclusion} describes to what degree the problem is solved. All code is provided, and suggestions for further work are given at the end of the paper.
+
+All image processing done throughout this project is done through the use of C++ and OpenCV library. Provided results with 3D images is made in MATLAB.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The Raytrix Camera}\label{the_raytrix_camera}
+
+\begin{figure}[ht]
     \centering
     \includegraphics[width=.9\linewidth]{images/introduction/raytrix_camera}
     \caption{Raytrix R42 Camera}
