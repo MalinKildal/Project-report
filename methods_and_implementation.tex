@@ -10,7 +10,7 @@ Write about what they have already tried out.
 they have tried interpolation filling out the fish. Show picture of the green fish. 
 This did work, but the interpolation algorithm take forever to run and you can see the colors that represent the depth of the fish is not that even.
 
-What is also now done is get the pdata directly from the Raytrix software, then make a depthmap from the pdata and use the pdata in the volume algorithm. What I want to do is get the depthmap directly from the Raytrix, do some work on it, extract the pdata based on color, then send the data to through the volume algorithm. 
+What is also now done is get the p-data directly from the Raytrix software, then make a depthmap from the p-data and use the p-data in the volume algorithm. What I want to do is get the depthmap directly from the Raytrix, do some work on it, extract the p-data based on color, then send the data to through the volume algorithm. 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -20,7 +20,7 @@ What is also now done is get the pdata directly from the Raytrix software, then 
 
 \subsubsection{Morphological Closing and Object Detection}
 
-One of the approaches used to better the depthmap image used morphological closing on the depthmap to even out the color and fill the holes. It started with color-filtering to remove particles too close or too far behind the main object. The algorithm also found the largest contour from the original image to use as a mask. The algorithm followed the steps below. The complete code can be found in section \ref{code}.
+The approach used to better the depthmap image used morphological closing on the depthmap to even out the color and fill the holes. It started with color-filtering to remove particles too close or too far behind the main object. The algorithm also found the largest contour from the original image to use as a mask. The algorithm followed the steps below. The complete code can be found in section \ref{code}.
 \begin{enumerate}
     \item \textbf{Filter out unwanted colors:}
     Color-filtering was done by looping through each pixel in the image and setting it to black if its blue-value was too high, green-value too low or red-value too low. This removed all particles in the image that was too close or to far behind. 
@@ -44,6 +44,10 @@ One of the approaches used to better the depthmap image used morphological closi
 \end{enumerate}
 
 Figure \ref{fig:algorithm} shows the steps done by the algorithm.
+
+The algorithm was tested on different depthmap images, and gave very good results on many of them. It was also tested to find the largest contour from the totalfocus image instead of the depthmap, but the depthmap returned a more accurate contour. Figure \ref{fig:algorithm_test} shows the results from 4 different depthmaps on the same fish.
+The result is good compared to the original depthmap, but the depthmap computed from the Raytrix software could be improved. This is most likely done by different lightning, or by giving the background a different color.
+Painting the test facility black was tried, but it only resulted in missing spots on the fishes back instead of its bog.
 
 
 \begin{figure}[H]
@@ -126,6 +130,61 @@ Figure \ref{fig:algorithm} shows the steps done by the algorithm.
 \end{figure}
 
 
+\begin{figure}[H]
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/algorithm_test/original_63}
+        \caption{Original depthmap image} 
+        \label{fig:original_depthmap_63}
+    \end{subfigure}\hspace*{\fill}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/algorithm_test/median_filter_63}
+        \caption{Result} 
+        \label{fig:result_63}
+    \end{subfigure}
+    
+    \medskip
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/algorithm_test/original_73}
+        \caption{Original depthmap image} 
+        \label{fig:original_depthmap_73}
+    \end{subfigure}\hspace*{\fill}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/algorithm_test/median_filter_63}
+        \caption{Result} 
+        \label{fig:result_73}
+    \end{subfigure}
+    
+    \medskip
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/algorithm_test/original_82}
+        \caption{Original depthmap image} 
+        \label{fig:original_depthmap_82}
+    \end{subfigure}\hspace*{\fill}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/algorithm_test/median_filter_63}
+        \caption{Result} 
+        \label{fig:result_82}
+    \end{subfigure}
+    
+    \medskip
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/algorithm_test/original_87}
+        \caption{Original depthmap image} 
+        \label{fig:original_depthmap_87}
+    \end{subfigure}\hspace*{\fill}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/algorithm_test/median_filter_87}
+        \caption{Result} 
+        \label{fig:result_87}
+    \end{subfigure}
+    
+    \caption{Algorithm test on different images} 
+    \label{fig:algorithm_test}
+\end{figure}
+
+\newpage
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -138,7 +197,9 @@ Since we could not get the naturally disturbances in the water to affect the dep
 
 The noise used is random sized color circles with random color placed randomly. The radius of each pixel is between 1 and 6 pixels. Noise was added from level 1 to 40, where level 1 starts with 20 particles, and each level adds 40 particles. That is, level 40 has 1,580 random particles in the image.
 
-The algorithm has few problems up to level 20. After that small parts of the fish starts missing (figure \ref{fig:noise_level_22}), and those holes get bigger and more concentrated up to level 40. Still, the algorithm can sometimes get decent results, an example is figure \ref{fig:noise_level_32}. Level 40 is almost covered with particles, and this would most likely never be a real issue, but the algorithms result is still not bad. 
+The algorithm has few problems up to level 20. Figure \ref{fig:noise_level_1}, and figure \ref{fig:noise_level_8} shows noise level 1 and 8, respectively, and shows few differences. After level 20, small parts of the fish starts missing (figure \ref{fig:noise_level_22}), and those holes get bigger and more concentrated up to level 40. Still, the algorithm can sometimes get decent results, an example is figure \ref{fig:noise_level_32}. Level 40 is almost covered with particles, and this would most likely never be a real issue, but the result is still not too bad.
+
+If this technology is to be used in conditions containing more particles than from the test case used in this report, it is reasonable to believe that some more processing and tuning could give good results also then. The case would most likely be to fill in the missing parts even more, and perhaps calculate the largest contour from the totalfocus image instead of the depthmap. 
 
 
 

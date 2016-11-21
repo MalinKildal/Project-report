@@ -3,4 +3,56 @@ In this section we describe the results.
 
 
 \subsection{Matlab 3D plots}
-Show the Matlab 3D plots from all different implementations and discuss the results.
+To prove the functions of the algorithm provided in section \ref{section:depthmap}, MATLAB was used to make a 3D plot of the fish. (See figure \ref{fig:3D_plot_63} and \ref{fig:3D_plot_87}). From these plots it is easy to see the differences from the original depthmap to the enhanced depthmap. The totalfocus image is put on top of the enhanced depthmap to make it even clearer that the resulting contour has nearly the same contour as the actual fish. It is also seen that most particles are removed, and the surface of the fish is evened out.
+
+Still, some errors remain. The contour of the fish is not exact, and some pixels on the border of the fish has git the wrong value. To find the contour, some eroding and dilating is used, and this can result in a contour that is not exact. To get the contour not to leave out larger areas of the fishes bog, this eroding and dilating is needed, so the contour is within reason. What concern the pixels surrounding the border of the fish, is some wrong measurements by the Raytrix, and other is particles on the border with close depthmap color to the rest of the fish. It looks like many particles in the 3D plot, but it is actually just about 10-20 single pixels in total in an image, so the biomass estimation will not get significantly affected.  
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.8\linewidth]{images/3D_results/original_3D_63}
+        \caption{Original depthmap} 
+        \label{fig:3D_original_63}
+    \end{subfigure}\hspace*{\fill}
+    
+    \medskip
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.8\linewidth]{images/3D_results/fixed_3D_63}
+        \caption{Resulting depthmap} 
+        \label{fig:3D_fixed_63}
+    \end{subfigure}\hspace*{\fill}
+    \caption{3D plot of depthmap in MATLAB}
+    \label{fig:3D_plot_63}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.8\linewidth]{images/3D_results/original_3D_87}
+        \caption{Original depthmap} 
+        \label{fig:3D_original_87}
+    \end{subfigure}\hspace*{\fill}
+    
+    \medskip
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.8\linewidth]{images/3D_results/fixed_3D_87}
+        \caption{Resulting depthmap} 
+        \label{fig:3D_fixed_87}
+    \end{subfigure}\hspace*{\fill}
+    \caption{3D plot of depthmap in MATLAB}
+    \label{fig:3D_plot_87}
+\end{figure}
+
+
+
+\subsection{Noise}
+
+It is seen from the noisy images that it has almost no effect on the result, still if the concentration of particles is high. This shows that the algorithm is robust and will work in most particle conditions as long as the light settings remains the same and the distance to the fish is within some boundaries.
+
+With extreme particle conditions the depthmap looses to much depth information from the fish, and the contour will not be exact. This is though under such extreme particle conditions that it is not reasonable to believe that such conditions will occur in real life.
