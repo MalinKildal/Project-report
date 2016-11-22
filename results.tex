@@ -56,3 +56,38 @@ Still, some errors remain. The contour of the fish is not exact, and some pixels
 It is seen from the noisy images that it has almost no effect on the result, still if the concentration of particles is high. This shows that the algorithm is robust and will work in most particle conditions as long as the light settings remains the same and the distance to the fish is within some boundaries.
 
 With extreme particle conditions the depthmap looses to much depth information from the fish, and the contour will not be exact. This is though under such extreme particle conditions that it is not reasonable to believe that such conditions will occur in real life.
+
+
+\subsection{Depth data preservation}
+
+To ensure that the correct depth data from the depthmap is not changed in the enhanced depthmap, MATLAB plots is provided for one row of the depthmap along the fish. See figure \ref{fig:sectional} and \ref{fig:row_plot}. This plot shows the intensity values from the depthmap images, the original (red line) and the enhanced (blue line). The fishes head is to the right and its tale to the left. From the red line it is easy to see that most error on the original depthmap is found at the tail and the head, while the depth data along the middle of the fish is reasonable. From figure \ref{fig:plot1} it is also seen that the correct depth data is preserved and that the added data for the "holes" is within reason. It is though clear that there is still room for improvement for filling in depth data at the head and tail. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.7\linewidth]{images/results/sectional}
+    \caption{Plotted row}
+    \label{fig:sectional}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/results/plot_row}
+        \caption{Plot of one row from the depthmap} 
+        \label{fig:plot1}
+    \end{subfigure}\hspace*{\fill}
+    
+    \medskip
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/results/plot_zoomed}
+        \caption{Plot of one row from the depthmap, zoomed in} 
+        \label{fig:plot2}
+    \end{subfigure}\hspace*{\fill}
+    \caption{Plot of depth information}
+    \label{fig:row_plot}
+\end{figure}
+
+

@@ -5,6 +5,15 @@ This section presents different processing techniques with the aim of solving th
 
 \subsection{Previous implementation done by SEALAB}
 
+Before the start of this project, setup of all needed hardware and software was already accomplished. Also, some implementation had already been made and some enhancement on the depthmap image was already tried out.
+
+The Raytrix camera needs to be attached to a computer and the computer along with the raytrix software is used when taking images. One difficulty is that the depth information is stored in its own .ray format, and since this format is not known to other processing tools it needs to be converted. SEALAB already has a program using C++ and OpenCV that converts this .ray file to a .png image holding the depthmap. 
+
+Already in place is also the actual algorithm calculating the volume of an object. This algorithm currently uses the depth information directly from the raytrix software and does not take a .png depthmap image. For the results developed in this report the volume measurement algorithm needs to receive the right depth information represented by the colors in the depthmap. This is most likely done by receiving data both from the .ray file along with the enhanced depthmap image.
+
+SEALAB has already tried using interpolation algorithms for filling out the fish. The problem with this algorithm is that its runtime is very slow, and the results are not sufficient. The colors along the fish is very uneven. 
+
+
 {\color{red}
 Write about what they have already tried out. 
 they have tried interpolation filling out the fish. Show picture of the green fish. 
