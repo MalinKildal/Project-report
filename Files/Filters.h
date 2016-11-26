@@ -11,17 +11,21 @@ using namespace cv;
 using namespace std;
 
 
-Mat erode(Mat src, int kernel_size, int iterations);
+Mat Erode(Mat src, int kernelSize, int iterations);
 
-Mat dilate(Mat src, int kernel_size, int iterations);
+Mat Dilate(Mat src, int kernelSize, int iterations);
 
-Mat close(Mat src, int kernel_size, int iterations);
+Mat Close(Mat src, int kernelSize, int iterations);
 
-Mat bilateral_filter(Mat src, int kernel_size);
+Mat Open(Mat src, int kernelSize, int iterations);
 
-Mat median_filter(Mat src, int kernel_size);
+Mat BilateralFilter(Mat src, int kernelSize);
 
-Mat filterColor(Mat src);
+Mat MedianFilter(Mat src, int kernelSize, int iterations);
+
+Mat ColorFilter(Mat src);
+
+Mat LocalThresholding(Mat src, int kernelSize, int c);
 
 
 #endif // FILTERS_H

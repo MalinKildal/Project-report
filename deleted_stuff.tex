@@ -135,3 +135,25 @@ Noise level 3 has more salt and pepper noise that noise level 2, and the noise i
     \caption{Depthmap image and result for noise level 3}
     \label{fig:noise_level_3}
 \end{figure}
+
+
+
+
+
+
+\subsection{Motivation}
+
+The work done in this report is done in cooperation with Sensomar AS (SEALAB OCEAN GROUP).
+Sensomar SEALAB is a company developing camera systems for underwater use. Most of SEALABs technology is planned for use in the fishing industry, especially aimed towards salmon breeding industry. 
+
+The aquaculture industry has grown dramatically over the last decades, and the fishing industry has become more and more industrial. This industrialisation of fish breeding has made the production more profitable, but it has also caused the concentration of salmon lice to grow dramatically. With the use of good camera systems along with the right image processing it can be possible to detect the lice much earlier than now. 
+
+Another challenge for the fish breeding companies is estimation of biomass. A grown salmons weight can vary from around two to ten kilos. This makes it hard for the companies to know the volume of fish they have in their cages at any time, and difficult to know how much fish they can sell. If they sell more fish then the cage contains they need to purchase fish from competitors at a steep price. The biomass estimation directly effects the profit, therefore, providing a solution for biomass estimation would very much benefit the companies. 
+
+SEALABs current goal is to develop an advanced underwater camera system that can both detect salmon lice and measure biomass in the fish cages.
+The system currently used by SEALAB for the biomass estimation is the Raytrix R42 camera, a light field camera computing both 2D and 3D images with corresponding depth data in one frame. The camera is the best in its field. Features for the Raytrix R42 camera is explained is section \ref{the_raytrix_camera}. 
+The depthmap produced by the cameras software can be used to estimate the volume of an object. Depthmaps computed by the Raytrix is very accurate in air, but underwater, the depthmap is not as accurate. Reasons for this inaccuracy can come directly from the water mediums properties, it can depend on the lightning, the background and/or particles in the water. This means that even though the best available camera technology is used, the results directly is still not good enough for correct volume measurement.
+
+With the use of image processing for noise and particle removal, together with testing of different lightning and background conditions, it is reasonable to believe that the estimates for biomass of fish could be improved.
+
+This report shows the exploration of different processing possibilities done on data extracted from the Raytrix R42. Different testing conditions is explored, and a suggested solution is provided and tested.

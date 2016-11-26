@@ -6,19 +6,13 @@
 *	If any standard is uncertain, travel to Rome.
 */
 
-/*	TODONE: Capture .ray image (from file or camera), show it in opencv, include all parameters (Camera untested)
-*	TODO: Add basic height removal
-*	TODO: Recognize object
-*	TODO: Fill out object
-*	TODO: Measure volume by splitting each fish into a set amount of segments in length and height, and grab box volume for each segment
-*/
-
 #include "CaptureImage.h"
 #include "CVDraw.h"
 #include "ImageOperations.h"
 #include "Filters.h"
 #include "FourierTransform.h"
-#include "FindContour.h"
+#include "FindLargestContour.h"
+#include <string>
 
 #include <opencv\highgui.h>
 #include <opencv\cv.h>
@@ -28,66 +22,88 @@ using namespace cv;
 using namespace std;
 
 
-//Works good on Laks18.10.16/...563, 573, 582 and 587. =D
-//Code from https://github.com/LowWeiLin/OpenCV_ImageBackgroundRemoval/blob/master/OpenCV_ImageBackgroundRemoval/main.cpp
-//Explanation at https://lowweilin.wordpress.com/2014/08/07/image-background-and-shadow-removal/
+const string readFrom = "C:/Users/Raytrix/Desktop/Laks_Malin/Noise_Level_1/";
+const string saveTo   = "Fish/Test1/";
+const string ending   = ".png";
 
-int main(int argc, char* argv[]) {
-	//Open .ray file from file
-	CaptureImage ci = CaptureImage("C:/Users/Raytrix/Desktop/Laks18.10.16/L2V3_20161018_141322074_0000000587.ray"); //L2V1_20161018_141158751_0000000563.ray");
-	Rx::CRxImage depthmap = ci.LoadFrame();
+const int particleRemovalKernelSize = 1;
+const int ParticleRemovalIterations = 2;
+const int closingKernelSize         = 12;
+const int closingIterations         = 3;
+const int localThreshKernelSize     = 9;
+const int localThreshC              = 10;
+const int medianFilterKernelSize    = 7;
+const int medianFilterIterations    = 3;
 
-	//Make Mat from .ray file
-	CVDraw cd2 = CVDraw(depthmap);
-	Mat src = cd2.MakeMat();
+vector<int> compression_params = { CV_IMWRITE_PNG_COMPRESSION, 0 };		//Make saving lossless
 
-	namedWindow("1. Original", CV_WINDOW_NORMAL);
-	imshow("1. Original", src);
-	imwrite("LargestContourandClosing/Fish4_L2V3_20161018_141322074_0000000587/1_original.png", src);
 
-	//Filter on color
-	src = filterColor(src);
-	namedWindow("2. Color Filtering", CV_WINDOW_NORMAL);
-	imshow("2. Color Filtering", src);
-	imwrite("LargestContourandClosing/Fish4_L2V3_20161018_141322074_0000000587/2_color_filtering.png", src);
+void ShowAndWrite(Mat image, string displayName, string saveName)
+{
+	namedWindow(displayName, CV_WINDOW_NORMAL);
+	imshow(displayName, image);
+	imwrite(saveTo + saveName + ending, image, compression_params);
+}
+
+
+Mat EnhanceDepthmap(Mat src)
+{
+    //Filter on color
+	src = ColorFilter(src);
 
 	//Remove small particles
-	src = erode(src, 1, 2);
-	src = dilate(src, 1, 2);
-	namedWindow("3. Removed Small Particles", CV_WINDOW_NORMAL);
-	imshow("3. Removed Small Particles", src);
-	imwrite("LargestContourandClosing/Fish4_L2V3_20161018_141322074_0000000587/3_remove_particles.png", src);
+	src = Erode(src, particleRemovalKernelSize, ParticleRemovalIterations);
+	src = Dilate(src, particleRemovalKernelSize, ParticleRemovalIterations);
 
 	//Find largest contour
 	Mat srcCopy = src.clone();
-	Mat largestContour = findLargestContour(srcCopy);
-	namedWindow("4. Largest Contour", CV_WINDOW_NORMAL);
-	imshow("4. Largest Contour", largestContour);
-	imwrite("LargestContourandClosing/Fish4_L2V3_20161018_141322074_0000000587/4_largest_contour.png", largestContour);
+	Mat largestContour = FindLargestContourDepthmap(srcCopy);
 
 	//Morphological closing orignal image
-	int i = 12;
-	src = close(src, i, 2);
-	namedWindow("5. Closing on Color Filtered Image", CV_WINDOW_NORMAL);
-	imshow("5. Closing on Color Filtered Image", src);
-	imwrite("LargestContourandClosing/Fish4_L2V3_20161018_141322074_0000000587/5_closing_on_color_filtered_image.png", src);
-	
+	src = Close(src, closingKernelSize, closingIterations);
+
 	//Mask original image
 	Mat maskedSrc;
 	src.copyTo(maskedSrc, largestContour);
-	namedWindow("6. Masked Source", CV_WINDOW_NORMAL);
-	imshow("6. Masked Source", maskedSrc);
-	imwrite("LargestContourandClosing/Fish4_L2V3_20161018_141322074_0000000587/6_masked_source.png", maskedSrc);
 
-	//Closing finished image
-	/*int j = 10;
-	maskedSrc = close(maskedSrc, j, 2);
-	namedWindow("7. Done", CV_WINDOW_NORMAL);
-	imshow("7. Done", maskedSrc);*/
+	//Remove wrong pixel values on edges using adaptive thresholding
+	Mat evenEdges = LocalThresholding(maskedSrc, localThreshKernelSize, localThreshC);
 
+	//Median filter
+	Mat dst = MedianFilter(evenEdges, medianFilterKernelSize, medianFilterIterations);
+    
+    return dst;
+}
+
+
+int main(int argc, char* argv[])
+{
+	//Open .ray file
+	CaptureImage ci = CaptureImage("C:/Users/Raytrix/Desktop/Laks_Malin/Test1/L2V2_20161018_141258159_0000000582.ray");
+	Rx::CRxImage depthmap = ci.LoadFrame();
+    //Make Mat from .ray file
+	CVDraw cd2 = CVDraw(depthmap);
+	Mat src = cd2.MakeMat();
 	
-	
-
+	//Resize totalfocus image
+	Mat totalfocus = imread(readFrom + "L2V2_20161018_141258159_0000000582_TotalFocus.png", 1);
+	Size size(src.cols, src.rows);
+	Mat totalfocusResize;
+	resize(totalfocus, totalfocusResize, size);
+    
+    //Save original depthmap and totalfocus image
+	ShowAndWrite(totalfocusResize, "Totalfocus", "totalfocus");
+	ShowAndWrite(src, "Original Depthmap", "originalDepthmap");
+    
+    //Enhance depthmap
+    Mat dst = EnhanceDepthmap(src);
+	ShowAndWrite(dst, "Enhanced Depthmap", "enhancedDepthmap");
+    
+	//Convert to grayscale
+	Mat grayImage;
+	cvtColor(dst, grayImage, CV_BGR2GRAY);
+	ShowAndWrite(grayImage, "Grayscale", "grayscale");
+    
 	waitKey(0);
 	return 0;
 }

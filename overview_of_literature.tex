@@ -36,43 +36,42 @@ The median filter is a nonlinear digital filtering technique used to remove nois
     \centering
     \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=.9\linewidth]{images/literature/original_fish_image}
+        \includegraphics[width=.98\linewidth]{images/literature/original_fish}
         \caption{Original Image}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=.9\linewidth]{images/literature/median_filter}
+        \includegraphics[width=.98\linewidth]{images/literature/medianblur}
         \caption{Median Filter}
     \end{subfigure}
     \caption{Example of median filtering}
     \label{fig:median_filter}
 \end{figure}
 
-It is seen from the images in figure \ref{fig:median_filter} that both the background and the black dots on the fish are smoothed out but the edges are preserved. Small particles is also removed; for example it is possible to see that the white particle under the fish is gone. The median filter used on this image has kernel size 9, and it was filtered four times in a row. When filtering several times in a row instead of increasing the kernel size the image will not get as blurry and small particles will still be removed.
+It is seen from the images in figure \ref{fig:median_filter} that both the background and all patterns on the fish are smoothed out, while the edges are preserved. Small particles is also removed; for example it is possible to see that some of the white reflections under the fish is gone. The median filter used on this image has kernel size 11, and it was filtered 2 times in a row. When filtering several times in a row instead of increasing the kernel size the image will not get as blurry and small particles will still be removed.
 
 
 \subsubsection{Bilateral Filter}
 The bilateral filter is, just as the median filter, a nonlinear digital filter used to remove noise, while preserving sharp edges. Each pixel in an image is replaced by a weighted average of intensity values from neighboring pixels. The weight does not only depend on distance, but also on the radiometric differences such as color intensity or depth distance. 
 
-{\color{red}Add bilateral image instead of median filter image}
-
 \begin{figure}[h]
     \centering
     \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=.9\linewidth]{images/literature/original_fish_image}
+        \includegraphics[width=.98\linewidth]{images/literature/original_fish}
         \caption{Original Image}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=.9\linewidth]{images/literature/median_filter}
+        \includegraphics[width=.98\linewidth]{images/literature/bilateralblur}
         \caption{Bilateral Filter}
+        \label{fig:bilateral_filter_b}
     \end{subfigure}
     \caption{Example of bilateral filtering}
     \label{fig:bilateral_filter}
 \end{figure}
 
-From figure \ref{fig:bilateral_filter} it is possible to see that the edges are well preserved while small particles are removed from the image. The image was filtered with kernel size {\color{red}????}, and it was filtered {\color{red}?????} times in a row.
+From figure \ref{fig:bilateral_filter} it is possible to see that the edges are well preserved and small imperfections are blurred out. This filter also increases the intensity in the image. Figure \ref{fig:bilateral_filter_b} was filtered with kernel size 11, and it was filtered 5 times in a row.
 
 
 \subsection{Shadow Removal}
@@ -99,7 +98,9 @@ In figure \ref{fig:shadow_removal} it is shown that the colors of the fish is pr
 
 This type of simple shadow removal can be very useful, but for the image in figure \ref{fig:median_filter} the fish is not colorful enough for the technique to remove the shadows only.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection{Filtering in the Frequency Domain}
 
@@ -124,7 +125,9 @@ There are many problems with underwater image processing due to the light propag
 
 Filtering in the frequency domain could be a solution to reduce the scattering in underwater images.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection{Morphological Operators}
 
@@ -226,4 +229,16 @@ Opening and closing assumes bright objects on a dark background. When opening an
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newpage
+\subsection{Thresholding}
+
+Thresholding is a simple image segmentation method. It is mostly used on grayscale images to obtain a binary image. In its simples form it replaces each pixel with black if the the intensity is less than some fixed threshold value, and with white if the intensity is above the threshold value. 
+The threshold value can be set manually, or chosen by the computer, depending on the threshold method used. 
+
+Thresholding is most used to detect objects from the background.
+
+\subsubsection{Adaptive Thresholding}
+Sometimes the intensity of both the object and the background changes rapidly throughout the image. This makes it hard to set a threshold value that holds for the entire image. In these situations local thresholding is the solution. Local (adaptive) thresholding runs through each pixel and chooses a threshold value based on each pixel's neighborhood. How the threshold is chosen is up to the user to decide, but most common is the median value or the Gaussian mean value.
 
