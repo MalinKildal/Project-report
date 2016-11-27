@@ -2,16 +2,28 @@
 
 \subsection{Motivation}\label{motivation}
 
-The aquaculture industry has grown dramatically over the last decades, farming everything from algae to shrimps and fish. The large growth in aquaculture industry makes demand for new innovative technology for making the production more profitable while also preserving the living conditions of the surrounding wildlife. 
+The aquaculture industry has grown dramatically over the last decades, farming everything from algae to shrimps and fish. The large growth in aquaculture industry makes demand for new innovative technology for making the production more profitable while minimizing risks of affecting the marine environment and biological diversity.\cite{website:aquaculture}
 
-One of the challenges for the aquaculture industry is biomass estimation. Especially for the Norwegian salmon breeding companies it is difficult to estimate the volume of fish in each cage, when a fully grown salmon normally weighs between two and ten kilos. As its normal to sell the whole cage before emptying it, a better estimate of the volume would profit the companies.
+One of the challenges for the aquaculture industry is biomass estimation. Especially for the Norwegian salmon breeding companies it is difficult to estimate the volume of fish in each farm, when a fully grown salmon normally weighs between two and ten kilos.\cite{website:biomass} As its normal to sell the whole fish farm before emptying it, a better estimate of the volume would profit the Norwegian companies, as Norway is the worlds leading producer of Atlantic salmon and the second largest seafood exporter in the world.\cite{website:aquaculture}
 
-The aquaculture industry has already become more automated, but there is still room for improvement and innovation. The salmon breeding industry already have an automated feeding process and salmon lice cleaning. The rapid growth and concentration of fish has though also led to a larger amount of salmon lice in and around the salmon cages. This has become a huge problem as the lice has become resistant to most conventional treatments. Also, as mentioned, biomass estimation is a huge goldmine for the fish breeding companies. Developing new technology for lice detection and volume estimation would be groundbreaking for the industry, but it has its challenges.
-Underwater imaging faces lots of challenges. The lightning conditions is not optimal, there are particles in the water, other fish in the background and light scattering issues. Lice detection claim high resolution images, and volume measurement requires 3D information. Using stereo cameras in noisy conditions is not optimal, but new plenoptic camera technology could be the solution. The best plenoptic camera technology in the marked is provided by Raytrix, a German company. The Raytrix R42 provides high resolution images with both depth information and normal color images. The camera is made for industrial purposes and is the absolute best plenoptic camera in air. Because of its outstanding specifications and results, it is now longed-for investigating if this technology could also perform underwater. 
+The aquaculture industry has already become more automated, but there is still room for improvement and innovation. The rapid growth and concentration of fish has led to a larger amount of salmon lice in and around the salmon farms. This has become a huge problem as the lice has become resistant to most conventional treatments. Also, as mentioned, biomass estimation is a huge goldmine for the fish breeding companies. Developing new technology for lice detection and volume estimation would be groundbreaking for the industry, but it has its challenges.
+Underwater imaging faces lots of challenges. The lightning conditions is not optimal, there are particles in the water, other fish in the background and light scattering issues. Lice detection claim high resolution images, and volume measurement requires 3D information. Using stereo cameras in noisy conditions is not optimal, but new plenoptic camera technology could be the solution. The best plenoptic camera technology in the marked is provided by Raytrix, a German company.\cite{article:plenoptic_camera} The Raytrix R42 provides high resolution images with both depth information and normal color images. The camera is made for industrial purposes and is the absolute best plenoptic camera in air. Because of its outstanding specifications and results, it is now longed-for investigating if this technology could also perform underwater. 
 
 Depth information created by the Raytrix is stored in a depthmap where different colors represents different depths. Due to the water mediums properties, particles, noise and difficult lightning conditions the depthmap is not complete. If this information is to be used to measure volume of objects, the depthmap needs to be improved, and that is the scope of this project. 
 This report shows the exploration of processing possibilities on the depthmap extracted from the Raytrix, along with a provided solution. In addition, different noise disturbance levels is investigated.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{SEALAB OCEAN GROUP}
+
+The work achieved in this report is done in collaboration with Sensomar AS (SEALAB OCEAN GROUP). 
+SEALAB OCEAN GROUP is a company developing camera systems for underwater use. Most of SEALAB's technology is planned for use in the aquaculture industry, mostly aimed towards salmon breeding industry.\cite{website:sealab}
+
+SEALAB's current goal is to develop an advanced underwater camera system that can both detect salmon lice, do object detection and classification on fish, and measure the fishes biomass. This complete camera system is to be placed in each breeding farm and the system shall communicate with a nearby station. SEALAB's plan is using the Raytrix R42 camera and the Raytrix technology as a main feature in the complete system and this is why they want the technology investigated for underwater purposes.
+
+SEALAB already has a test facility with the possibility of shooting pictures of fish underwater. This wetlab has a complete Raytrix system setup and more. Section \ref{wetlab} explains this further. They also have an agreement with Marine Harvest, so they can get both dead or alive fish whenever they want something tested.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -19,7 +31,7 @@ This report shows the exploration of processing possibilities on the depthmap ex
 
 \subsection{Report Outline} \label{report_outline}
 
-First, section \ref{overview} describes the different approaches useful for solving the problem at hand. Next, the aim for this report is explained in section \ref{aim of study}, and the implementation of the presented solution is described in \ref{methods and implementation}, along with different tests. Results is presented in section \ref{results}, and section \ref{conclusion} describes to what degree the problem is solved. All code is provided, and suggestions for further work are given at the end of the paper.
+First, section \ref{theory} describes the different approaches useful for solving the problem at hand. Next, the aim for this report is explained in section \ref{aim of study}, and the implementation of the presented solution is described in \ref{methods and implementation}, along with different tests. Results is presented in section \ref{results}, and section \ref{conclusion} describes to what degree the problem is solved. All code is provided, and suggestions for further work are given at the end of the paper.
 
 All image processing done throughout this project is done through the use of C++ and OpenCV library. Provided results with 3D images is made in MATLAB.
 

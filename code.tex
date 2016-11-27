@@ -33,31 +33,11 @@
 \lstinputlisting[style=customc]{Files/main.cpp}
 
 
-\subsection{FindLargestContour.cpp \cite{website:largest_contour_code_github}} 
+\subsection{FindLargestContour.cpp}
+The method used for finding the largest contour is a modified version of a method from GitHub \cite{website:largest_contour_code_github}.
 \lstinputlisting[style=customc]{Files/FindLargestContour.cpp}
 
 
 \subsection{Filters.cpp}
 \lstinputlisting[style=customc]{Files/Filters.cpp}
 
-
-
-{\color{red}
-\subsection{DO THIS!!!!}
-
-Make 3D plot in matlab:
-
-https://se.mathworks.com/matlabcentral/answers/91442-how-do-i-create-a-3-d-plot-of-the-pixel-intensity-of-an-image-in-matlab
-
-\begin{lstlisting}[language=matlab]
-I=imread('moon.tif');
-[x,y]=size(I);
-X=1:x;
-Y=1:y;
-[xx,yy]=meshgrid(Y,X);
-i=im2double(I);
-figure;mesh(xx,yy,i);
-colorbar
-figure;imshow(i)
-\end{lstlisting}
-}

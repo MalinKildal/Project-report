@@ -30,6 +30,8 @@ What is also now done is get the p-data directly from the Raytrix software, then
 The approach used to better the depthmap image is mostly based on color filtering followed by morphological closing together with object detection. 
 Color filtering is first used to remove detected particles. All data, based on its color, too close to the camera or too far behind the object is removed. This is an easy way of filtering out irrelevant data. Morphological closing is a very good operation for leveling out the color and fill the holes, and it is therefore used several times in a row on the color filtered image. The only problem is that the object will lose its original shape when used many iterations in a row. To solve this problem, an object detection algorithm was run on the color filtered image. This algorithm finds the largest contour in the image and returns a mask of the contour. This mask is put on top of the morphologically closed image and makes the result.
 
+It is assumed that the object in the depthmap has a smooth surface and that the depth data does not vary too much.
+
 The steps of the algorithm follows below, and the complete code can be found in section \ref{code}.
 
 \begin{enumerate}

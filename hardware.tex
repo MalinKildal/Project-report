@@ -4,7 +4,7 @@
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=.9\linewidth]{images/introduction/raytrix_camera}
+    \includegraphics[width=.9\linewidth]{images/hardware/raytrix_camera}
     \caption{Raytrix R42 Camera}
     \label{fig:raytrix_camera}
 \end{figure}
@@ -19,7 +19,7 @@ The Raytrix camera is build up by a main lens in front, a micro lens array, and 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{images/introduction/Light-Field-Camera-Schematic}
+    \includegraphics[width=.9\linewidth]{images/hardware/Light-Field-Camera-Schematic}
     \caption{Raytrix Light Field Technology}
     \label{fig:light_field}
 \end{figure}
@@ -31,54 +31,49 @@ The totalfocus image - which is just a normal color image - is made from the raw
 The depthmap, figure \ref{fig:depthmap}, is computed from the raw image, and the 3D image, figure \ref{fig:3d_image}, is made from the depthmap and the totalfocus image. 
 The depth in the depthmap is represented by colors, where red is close to the camera, yellow and green is the object centered during calibration, blue is behind the object, and black has no depth. This means that the optimal depthmap image would be all black, with a yellow and green fish.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=.9\linewidth]{images/introduction/raw}
+    \includegraphics[width=.9\linewidth]{images/hardware/raw}
     \caption{Raw image}
     \label{fig:raw_image}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=.9\linewidth]{images/introduction/totalfocus}
+    \includegraphics[width=.9\linewidth]{images/hardware/totalfocus}
     \caption{Totalfocus image}
     \label{fig:totalfocus}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=.9\linewidth]{images/introduction/depthmap}
+    \includegraphics[width=.9\linewidth]{images/hardware/depthmap}
     \caption{Depthmap image}
     \label{fig:depthmap}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=.9\linewidth]{images/introduction/depth3D}
+    \includegraphics[width=.9\linewidth]{images/hardware/depth3D}
     \caption{3D image}
     \label{fig:3d_image}
 \end{figure}
 
 As seen from the 3D image produced in the Raytrix Software, the particles in front will affect the surface of the object. The same goes for holes in the object. Figure \ref{fig:3d_image_side} shows the 3D image in figure \ref{fig:3d_image} turned about 45 degrees to the side. This shows how inaccurate the current 3D model for underwater images are. 
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=.9\linewidth]{images/introduction/depth3D_side}
+    \includegraphics[width=.9\linewidth]{images/hardware/depth3D_side}
     \caption{3D image from the side}
     \label{fig:3d_image_side}
 \end{figure}
 
-The reason the Raytrix R42 camera is used by Sensomar SEALAB, is because of its high resolution and high frame-rate. All competitors of Raytrix does not have as good frame-rate and resolution all together. The Raytrix camera is also different from other light field cameras because it has the light ray crossing behind the micro lens array, while other light field cameras have the light crossing in front of the micro lens array.
+The reason the Raytrix R42 camera is used by SEALAB, is because of its high resolution and high frame-rate, which non of Raytrix's competitors can match. The Raytrix camera is also different from other light field cameras because it has the light ray crossing behind the micro lens array, while other light field cameras have the light crossing in front of the micro lens array.
 
-One problem working with the Raytrix is that the depth information is stored in their own .ray format. It is not yet possible to do direct image processing on this format using other processing tools than Raytrixs own software, RxLive. RxLive has some good software tools, but to do more advanced image processing the software is not sufficient.
-Another problem is the calibration of the Raytrix. For every time the camera is calibrated the colors in the depthmap, representing the depth, change. ....
+One problem working with the Raytrix is that the depth information is stored in their own .ray format. It is not yet possible to do direct image processing on this format using other processing tools than Raytrix's own software, RxLive. RxLive has some good software tools, but to do more advanced image processing the software is not sufficient.
+Another problem is the calibration of the Raytrix. For every time the camera is calibrated the colors in the depthmap, representing the depth, change. If image processing on the depthmap is to be the solution, data from calibration along with the depth data must be put into the complete algorithm. 
 
 All images in this subsection is made with the Raytrix software, RxLive 4.0.
-
-
-
-{\color{red}Explain more about how the Raytrix measures depth?? Explain the calibration and the RAW image?? And about Light Field Cameras?}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,6 +81,35 @@ All images in this subsection is made with the Raytrix software, RxLive 4.0.
 
 \subsection{Wetlab}\label{wetlab}
 
-SEALAB has its own test facilities where they have the complete camera setup in a small pool. Aquaculture companies deliver fish for testing.
+SEALAB has its own test facilities where they have a small fish tank with cameras setup. The wetlab have setup for both the Raytrix R42, a Sony 2D camera for high resolution images and underwater lights. The cameras are directly connected to computers, so it is possible to work remotely.
+
+SEALAB have an agreement with Marine Harvest so it is possible to get fish delivered to the wetlab for testing.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.6\linewidth]{images/hardware/wetlab_overview}
+        \caption{Test facility} 
+    \end{subfigure}\hspace*{\fill}
+    
+    \medskip
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.6\linewidth]{images/hardware/wetlab_fish_dome}
+        \caption{Raytrix view with white background} 
+    \end{subfigure}\hspace*{\fill}
+    
+    \medskip
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.6\linewidth]{images/hardware/wetlab_raytrix}
+        \caption{Raytrix view with black background} 
+    \end{subfigure}\hspace*{\fill}
+    \caption{Wetlab \cite{website:sealab}}
+    \label{fig:wetlab}
+\end{figure}
+
+The test facility was originally white, but during a period with testing it was painted black to imitate the ocean. Figure \ref{fig:wetlab} gives a clearer picture of the test facility in the wetlab.
 
 

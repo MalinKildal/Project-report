@@ -14,6 +14,7 @@
 \usepackage{mathtools}
 \usepackage{listings}
 \usepackage{float}
+\usepackage{hyperref}
 
 
 \makeatletter % Set distance from top of page to first float
@@ -61,7 +62,6 @@ Annette Stahl
 \input{abstract}
 \clearpage
 
-
 \tableofcontents
 \clearpage
 
@@ -75,7 +75,7 @@ Annette Stahl
 \input{aim_of_study}
 \clearpage
 
-\input{overview_of_literature}
+\input{theory}
 \clearpage
 
 \input{methods_and_implementation}
@@ -90,12 +90,13 @@ Annette Stahl
 \input{future_work}
 \clearpage
 
+\bibliographystyle{plain}
+\bibliography{kilder}
+\clearpage
+
 \input{code}
 \clearpage
 
-
-\bibliographystyle{plain}
-\bibliography{kilder}
 
 \end{document}
 
