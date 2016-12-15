@@ -6,29 +6,17 @@ The aquaculture industry has grown dramatically over the last decades, and is th
 Great development in breeding technology, system design and feed technology in the second half of the twentieth century has made an expansion of viable aquaculture across species and in volume.
 For this growth to continue the aquaculture industry makes demand for new innovative technology for making the production more profitable while minimizing risks of affecting the marine environment and biological diversity.\cite{website:aquaculture}
 
-One of the challenges for the aquaculture industry is biomass estimation. Especially for the Norwegian salmon breeding companies it is difficult to estimate the volume of fish in each farm, when a fully grown salmon normally weighs between two and ten kilos.\cite{website:biomass} As it is normal to sell the whole fish farm before emptying it, a better estimate of the volume would profit the Norwegian companies, as Norway is the worlds leading producer of Atlantic salmon and the second largest seafood exporter in the world.\cite{website:aquaculture}
+One of the challenges for the aquaculture industry is biomass estimation. Especially for the Norwegian salmon breeding companies it is difficult to estimate the volume of fish in each farm, when a fully grown salmon normally weighs between two and ten kilos.\cite{website:biomass} It is normal procedure to estimate the biomass of an entire fish farm and sell it before emptying the farm. As Norway is the worlds leading producer of Atlantic salmon and the second largest seafood exporter in the world, a better estimate of the biomass in a fish farm would be beneficial to the Norwegian aquaculture industry.\cite{website:aquaculture}
 
-The aquaculture industry has already become more automated, but there is still room for improvement and innovation. The rapid growth and concentration of fish has led to a larger amount of salmon lice in and around the salmon farms. This has become a large problem as the lice has become resistant to most conventional treatments. Also, as mentioned, biomass estimation is a huge goldmine for the fish breeding companies. Developing new technology for volume estimation would be groundbreaking for the industry, but it has its challenges.
-Underwater imaging faces lots of challenges. The lightning conditions is not optimal, there are particles in the water, other fish in the background and light scattering issues. Volume measurement also requires 3D information. 
+Though the aquaculture industry has had rapid growth over the last decades, it has developed fast and much of the breeding process is already automated. But, there is still room for improvement and innovation. Automated biomass estimation is one innovation that would benefit the fish farming industry as pure profit.
+But, developing new technology for volume estimation has its challenges.
+Underwater imaging is in itself a challenge. The lightning conditions is not optimal, there are particles in the water, other fish in the background and light scattering issues. Volume measurement also requires 3D information. 
 Using plenoptical camera technology is simpler than the use of a stereo camera system. This because the correspondence problem is minimized and the camera extracts both horizontal and vertical information, which improves the reliability of the depth measurements. Using two cameras instead of one often leads to difficulties with calibration and ambiguities about correspondence often present formidable computational challenges. In addition, stereo cameras cannot offer depth estimates for contours parallel to the parallax axis.\cite{article:stereo_vs_plenoptic}
-The best plenoptic camera technology in the current marked is provided by Raytrix, a German company.\cite{article:plenoptic_camera} The Raytrix R42 provides high resolution images with both depth information and normal color images. The camera is made for industrial purposes and is the absolute best plenoptic camera in air. Because of its outstanding specifications and results, it is now longed-for investigating if this technology could also perform underwater. 
+The best plenoptic camera technology in the current market is provided by Raytrix, a German company.\cite{article:plenoptic_camera} The Raytrix R42 provides high resolution images with both depth information and normal color images. The camera is made for industrial purposes and is the absolute best plenoptic camera in air. Because of its outstanding specifications and results, it is now longed-for investigating if this technology could also perform underwater. 
 
-Depth information created by the Raytrix is stored in a depthmap color coded image where different colors represents different depths. Due to the water mediums properties, particles at different depths, noise and difficult lightning conditions the depthmap is not complete. It contains irrelevant information from disturbing particles, while missing some information on the object due to factors like bad lightning conditions. 
+Depth information created by the Raytrix is stored in a depthmap color coded image where different colors represents different depths. The depth represented by each color is stated during Due to the water mediums properties, particles at different depths, noise and difficult lightning conditions the depthmap is not exact. It contains irrelevant information from disturbing particles, while missing some information on the object due to factors like bad lightning conditions. 
 If this depthmap created by the Raytrix is to be used to measure volume of objects, it needs further improvement, and that is the scope of this project. 
-This report shows the exploration of processing possibilities on the depthmap extracted from the Raytrix, along with a provided solution. In addition, different noise disturbance levels is investigated.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\subsection{Acknowledgement}
-
-The work achieved in this report is done in collaboration with Sensomar AS (SEALAB OCEAN GROUP). 
-SEALAB OCEAN GROUP is a company developing camera systems for underwater use. Most of SEALAB's technology is planned for use in the aquaculture industry, mostly aimed towards salmon breeding industry.\cite{website:sealab}
-
-SEALAB's current goal is to develop an advanced underwater camera system that can both detect salmon lice, do object detection and classification on fish, and measure the fishes biomass. This complete camera system is to be placed in each fish breeding farm and the system shall communicate with a nearby station. SEALAB plan to use the Raytrix R42 camera and the Raytrix technology as a main feature in the complete system. This is why the technology is investigated for underwater purposes.
-
-SEALAB already has a test facility with the possibility of shooting pictures of fish underwater. This wetlab has a complete Raytrix system setup and more. Section \ref{wetlab} explains this further. SEALAB also have an agreement with Marine Harvest, so that fish can be delivered, dead or alive, whenever testing is desirable.
+This report shows the exploration of processing possibilities on the depthmap extracted from the Raytrix, along with a provided solution. In addition, different noise disturbance levels are investigated.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -36,9 +24,13 @@ SEALAB already has a test facility with the possibility of shooting pictures of 
 
 \subsection{Report Outline} \label{report_outline}
 
-First, section \ref{theory} describes the different approaches useful for solving the problem at hand. Next, the aim for this report is explained in section \ref{aim of study}, and the implementation of the presented solution is described in \ref{methods and implementation}, along with different tests. Results is presented in section \ref{results}, and section \ref{conclusion} describes to what degree the problem is solved. All code is provided, and suggestions for further work are given at the end of the paper.
+First, section \ref{aim of study} explains the scope and objective. Next, section \ref{hardware} gives information about the Raytrix technology and the Raytrix R42 camera, along with a description of the test facility.
+Section \ref{theory} describes the different approaches useful for solving the problem at hand, and the implementation of the presented solution along with different tests is described in section \ref{methods and implementation}.
+Results are presented and discussed in section \ref{results}, and section \ref{conclusion} describes to what degree the problem is solved.
+At last, section \ref{future_work} provides suggestions for how the results can be used for future work.
 
-All image processing done throughout this project is done through the use of C++ and OpenCV library. Provided results with 3D images is made in MATLAB.
+Code of the suggested implementation is provided in section \ref{code}.
+All image processing in this project is done through the use of C++ and OpenCV library. Provided results with 3D images and plots are made in MATLAB.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
