@@ -41,7 +41,7 @@ The median filter is a nonlinear digital filtering technique used to remove nois
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=.98\linewidth]{images/literature/medianblur}
+        \includegraphics[width=.98\linewidth]{images/literature/median}
         \caption{Median Filter}
     \end{subfigure}
     \caption{Example of median filtering}
@@ -63,7 +63,7 @@ The bilateral filter is, just as the median filter, a nonlinear digital filter u
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=.98\linewidth]{images/literature/bilateralblur}
+        \includegraphics[width=.98\linewidth]{images/literature/bilateral}
         \caption{Bilateral Filter}
         \label{fig:bilateral_filter_b}
     \end{subfigure}
@@ -114,13 +114,18 @@ By removing certain frequencies in the frequency domain it is possible to remove
 
 
 \subsubsection{Light scattering}
-There are many problems with underwater image processing due to the light propagation in the water medium. The physical properties of water cause degradation effects not present in images taken in air. The water absorbs light and therefore limits the visibility distance, and it also causes scattering, which changes the direction of the light path. This influences the overall performance of underwater imaging systems. Forward scattering is the spreading of light from an object towards the camera, while backward scattering is the light reflected by the water towards the camera before it actually reaches an object. Backward scattering reduces the contrast of the image, and is seen as sunbeams on the image. Scattering comes from not only the water, but all particles in the water. \cite{article:underwater_image_processing}
+
+Most objects that one sees are visible due to light scattering from their surfaces. Indeed, this is the primary mechanism of physical observation. Scattering of light depends on the wavelength or frequency of the light being scattered, so particles smaller than the wavelength is impossible to observe.\cite{website:wiki_light_scattering}
+
+The light propagation in the water medium causes the observed objects to appear unclear or blurry. The physical properties of water cause degradation effects not present in air. The water absorbs light and therefore limits the visibility distance, and it also causes scattering, which changes the direction of the light path. Underwater light scattering is the deflection of a ray from a straight path, caused by the irregularities in the water medium and particles. Deviations due to irregularities on the water surface are also usually considered as a form of scattering. 
+
+This influences the overall performance of underwater imaging systems. Forward scattering is the spreading of light from an object towards the camera, while backward scattering is the light reflected by the water towards the camera before it actually reaches an object. Backward scattering reduces the contrast of the image, and is seen as light rays in the image. Scattering comes not only from the water itself, but also from all particles in the water and from the water surface.\cite{article:underwater_image_processing}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/image_from_paper}
-    \caption{Explanation of scattering from (Raimondo Schettini and Silvia Corchs, 2010, p. 3)}
-    \label{fig:image_from_paper}
+    \includegraphics[width=0.9\textwidth]{images/literature/light_scattering}
+    \caption{Explanation of light scattering in water}
+    \label{fig:light_scattering}
 \end{figure}
 
 Filtering in the frequency domain could be a solution to reduce the scattering in underwater images.
