@@ -1,0 +1,147 @@
+\section{Implementation}\label{implementation}
+
+This section presents an implementation with the aim of solving the task at hand. Previous work trying to improve the depthmap image is shortly presented and discussed. The new implementation is explained step by step followed by images showing the process.
+
+
+\subsection{Previous Work on the Depthmap Image {\color{red}REMOVE???}}
+
+Before the start of this project, setup of all needed hardware and software was already accomplished. Also, some implementation had already been made along with some experimental enhancement on the depthmap image.
+
+As explained earlier, the Raytrix needs to be attached to a computer with the Raytrix software installed. One difficulty working with the Raytrix is that all 3D information is stored in its own raytrix format which is not compatible with other processing tools. This format can not be directly converted to PNG or JPG for further processing, but an implementation performing this conversion was already accomplished for the color depthmap image. The resulting color depthmap image in PNG format does not have any direct depth information, but consists of colors that only represents depth together with the Raytrix calibration.
+However, the color depthmap is intuitively to work with, as it is clear to see the shape based on the colors.
+
+The existing implementation used for enhancement of the depthmap image used interpolation algorithms for filling out the "holes" in the fish. This implementations runtime was very slow and the results were not sufficient as the colors along the fish was not evenly distributed.
+
+
+
+{\color{red}
+Write about what they have already tried out. 
+they have tried interpolation filling out the fish. Show picture of the green fish. 
+This did work, but the interpolation algorithm take forever to run and you can see the colors that represent the depth of the fish is not that even.
+
+What is also now done is get the p-data directly from the Raytrix software, then make a depthmap from the p-data and use the p-data in the volume algorithm. What I want to do is get the depthmap directly from the Raytrix, do some work on it, extract the p-data based on color, then send the data to through the volume algorithm. 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Depthmap enhancement} \label{section:depthmap}
+
+The approach used to better the depthmap image is mostly based on color filtering followed by morphological closing together with object detection. 
+Color filtering is first used to remove detected particles. All data, based on its color, too close to the camera or too far behind the object is removed. This is an easy way of filtering out irrelevant data. Morphological closing is a very good operation for leveling out the color and fill the holes, and it is therefore used several times in a row on the color filtered image. The only problem is that the object will lose its original shape when run several iterations in a row. To solve this problem, an object detection algorithm was run on the color filtered image. This algorithm finds the largest contour in the image and returns a binary mask of the contour. This mask is put on top of the morphologically closed image and makes the result.
+
+It is assumed that the object in the depthmap has a smooth surface so that the depth data does not vary too much. It is also assumed only one object in each image, and that the object is centered in the detection area.
+
+The steps of the algorithm follows below, and the complete code can be found in section \ref{code}.
+
+\begin{enumerate}
+    \item \textbf{Filter out unwanted colors:}
+    Color-filtering was done by looping through each pixel in the image and setting it to black if its blue-value was too high, green-value too low or red-value too low. This removed all particles detected by the Raytrix that was too close or to far behind the object of interest, assuming the object is centered.
+    
+    \item \textbf{Remove small particles:}
+    Removal of small particles was done by morphological opening. Too much opening would remove much of the object, so here there is a fine line depending on how much depth data is available on the object.
+    
+    \item \textbf{Find largest contour:} 
+    Finding the largest contour followed these steps: 
+    \begin{enumerate}[label*=\arabic*.]
+        \item Convert to grayscale and normalize
+        \item Sobel edge detector and thresholding
+        \item Dilate
+        \item Floodfill
+        \item Erode
+        \item Find largest contour
+    \end{enumerate}
+    This algorithm is found on GitHub \cite{website:largest_contour_code_github}, but has been modified. For further explanation of the complete algorithm, see \cite{website:largest_contour_code_explanation}.
+    The resulting images for each step of the algorithm is shown in figure \ref{fig:find_largest_contour}.
+    
+    \item \textbf{Morphological closing on color-filtered image:}
+    To fill out holes in the object in an even way, morphological closing was used. This also levels out the depth data on the surface of the object, such that small errors are removed.
+    
+    \item \textbf{Mask the morphological closed image with the largest contour:}
+    Because the morphological closing operations somewhere expands the object, the largest contour was used as a mask to gain the final result. 
+\end{enumerate}
+
+Figure \ref{fig:algorithm} shows the given result after each step of the algorithm.
+
+
+\begin{figure}[H]
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/4_1_grayscale}
+        \caption{Converted to grayscale} 
+        \label{fig:grayscale}
+    \end{subfigure}\hspace*{\fill}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/4_2_edge_detector}
+        \caption{Edge detection} 
+        \label{fig:edge_detection}
+    \end{subfigure}
+    
+    \medskip
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/4_3_dilate}
+        \caption{Dilate} 
+        \label{fig:dilate_contour}
+    \end{subfigure}\hspace*{\fill}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/4_4_floodfill}
+        \caption{Floodfill} 
+        \label{fig:floodfill}
+    \end{subfigure}
+    
+    \medskip
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/4_5_erode}
+        \caption{Erode} 
+        \label{fig:erode_contour}
+    \end{subfigure}\hspace*{\fill}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/4_largest_contour}
+        \caption{Largest contour} 
+        \label{fig:largest_contour_2}
+    \end{subfigure}
+    \caption{Finding the largest contour} 
+    \label{fig:find_largest_contour}
+\end{figure}
+
+
+\begin{figure}[H]
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/1_original}
+        \caption{Original depthmap image} 
+        \label{fig:original_depthmap}
+    \end{subfigure}\hspace*{\fill}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/2_color_filtering}
+        \caption{Color-filtered image} 
+        \label{fig:color_filtering}
+    \end{subfigure}
+    
+    \medskip
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/3_remove_particles}
+        \caption{Removal of small particles} 
+        \label{fig:remove_particles}
+    \end{subfigure}\hspace*{\fill}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/4_largest_contour}
+        \caption{Largest contour} 
+        \label{fig:largest_contour}
+    \end{subfigure}
+    
+    \medskip
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/5_closing_on_color_filtered_image}
+        \caption{Morphological closing on (c)} 
+        \label{fig:morphological_closing}
+    \end{subfigure}\hspace*{\fill}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth]{images/implementation/6_masked_source}
+        \caption{Masked image of (d) and (e)} 
+        \label{fig:masked_source}
+    \end{subfigure}
+    \caption{Morphological closing and masking with largest contour} 
+    \label{fig:algorithm}
+\end{figure}
+
+
+

@@ -172,4 +172,94 @@ This camera is therefore very useful for industrial purposes, as you can get bot
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\subsection{Shadow Removal {\color{red}Remove?}}
+There are few open source algorithms for shadow removal. There are some advanced explanations for shadow removal, but they do not always work properly. Shadow removal can be useful when reconstructing an image or when detecting objects. 
+Simple shadow removal can be done by transforming the color space of the image from RBG to HSV and then setting the value component of each pixel to a constant value. What this really does is even out all grey tones in the image, as is shown in figure \ref{fig:shadow_removal}.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/literature/colorfish}
+        \caption{Original Image\cite{website:colorfish_image}}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/literature/shadow_removal}
+        \caption{Shadow Removal}
+    \end{subfigure}
+    \caption{Example of shadow removal}
+    \label{fig:shadow_removal}
+\end{figure}
+
+In figure \ref{fig:shadow_removal} it is shown that the colors of the fish is preserved, while all the shadows and blurry background in grey tones are evened out. In this example the value component is set to 200.
+
+This type of simple shadow removal can be very useful, but for the image in figure \ref{fig:median_filter} the fish is not colorful enough for the technique to remove the shadows only.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Depthmap Results:
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/results/3D_plots/original_3D_63}
+        \caption{Original depthmap} 
+        \label{fig:3D_original_63}
+    \end{subfigure}\hspace*{\fill}
+    
+    \medskip
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/results/3D_plots/fixed_3D_63}
+        \caption{Resulting depthmap} 
+        \label{fig:3D_fixed_63}
+    \end{subfigure}\hspace*{\fill}
+    
+    \medskip
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/results/3D_plots/fixed_3D_fish_63}
+        \caption{Resulting depthmap with image overlay} 
+        \label{fig:3D_fixed_fish_63}
+    \end{subfigure}\hspace*{\fill}
+    \caption{3D plot of depthmap in MATLAB, number 563}
+    \label{fig:3D_plot_63}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.65\linewidth]{images/results/3D_plots/original_3D_87}
+        \caption{Original depthmap} 
+        \label{fig:3D_original_87}
+    \end{subfigure}\hspace*{\fill}
+    
+    \medskip
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.65\linewidth]{images/results/3D_plots/fixed_3D_87}
+        \caption{Resulting depthmap} 
+        \label{fig:3D_fixed_87}
+    \end{subfigure}\hspace*{\fill}
+    
+    \medskip
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.65\linewidth]{images/results/3D_plots/fixed_3D_fish_87}
+        \caption{Resulting depthmap with image overlay} 
+        \label{fig:3D_fixed_fish_87}
+    \end{subfigure}\hspace*{\fill}
+    \caption{3D plot of depthmap in MATLAB, number 587}
+    \label{fig:3D_plot_87}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 

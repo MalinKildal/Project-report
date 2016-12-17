@@ -1,26 +1,11 @@
 \section{Future Work} \label{future_work}
 
-Future work to develop the method described further is to get a better depthmap image in the first place. The most likely way of achieving this is by testing different lightning conditions. During this study the only light available only had one brightness level. Opportunity of controlling the brightness levels would probably give better results. 
+The work done in this report is just a small part towards the goal of a complete underwater volume measurement system using Raytrix plenoptic technology. 
 
-The depthmap achieved through OpenCV should also be aligned with the calibration info and depth data stored in the .ray file produced by the Raytrix software. This information would give the opportunity to run the depthmap directly through the volume algorithm and get concrete numbered results that can be verified.
+Further development would require more image testing for a better base image material from the Raytrix. The most important test condition is probably light. Therefore, different light conditions should be tested both in a closed tank and in open sea. With good conditions better base images would be established and that would make much of the further work a lot easier. 
+When dealing with fish as objects, especially salmon, it is hard to achieve good light as the fish reflects light coming directly towards it. It is also a problem that the fish's back along with its fins and head are very black, such that the Raytrix have problem detecting differences in the micro lenses, and thereby generates poor depth data.
 
-The next step after getting the actual volume measurement achieved would be to try the system in open sea. This would give more real conditions and if it works properly if would really speed the process of accomplishing a complete system. 
+Another important step is merging the Raytrix calibration data into the color depthmap, or somehow establish an interaction between the color depthmap and the Raytrix depth data. This is something that must be achieved if volume measurement is to be realized.
 
+The next important part is implementing an algorithm that actually measures the volume of the objects. This is most likely a step that requires much testing, adjustments and verification, starting with simple objects before testing on more advanced shapes. 
 
-
-
-{\color{red}
-
-- Add reliability to code
-    - Test for correct input...
-
-- Test different lightning conditions
-
-- Test in open sea
-
-- Make depthmap run on volume algorithm
-
-- Further adjustment on the code
-
-- 
-}
