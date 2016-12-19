@@ -1,11 +1,3 @@
-/*	RULES:
-*	Keep main clean! Object orient!
-*	Never make anything completely dependant on anything else. Never add code that are impossible to remove or alter without impacting everything else.
-*	Variables are camelBack named. Methods and classes are CamelCaps.
-*	No namespace!
-*	If any standard is uncertain, travel to Rome.
-*/
-
 #include "CaptureImage.h"
 #include "CVDraw.h"
 #include "ImageOperations.h"
@@ -42,8 +34,9 @@ void ShowAndWrite(Mat image, string displayName, string saveName)
 {
 	namedWindow(displayName, CV_WINDOW_NORMAL);
 	imshow(displayName, image);
-	imwrite(saveTo + saveName + ending, image, compression_params);
+	imwrite(saveTo+saveName+ending, image, compression_params);
 }
+
 
 
 Mat EnhanceDepthmap(Mat src)
