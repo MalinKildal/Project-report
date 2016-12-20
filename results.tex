@@ -4,7 +4,7 @@ The method presented in section \ref{implementation} was tested on several depth
 In addition, simulated random particle noise was added to the depthmaps and run through the enhancement method to test how well the method performs under normal to extreme conditions.
 
 
-\subsection{Algorithm test}
+\subsection{Algorithm Test}
 
 The method from section \ref{implementation} was tested on several depthmap images of fish and gave very good results for many of them. During implementation it was also considered to find the largest contour from the totalfocus image instead of the depthmap, but using the totalfocus image gave a less accurate contour. 
 
@@ -70,7 +70,7 @@ As seen, the results looks good compared to the original images. "Holes" are fil
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{MATLAB 3D plots}
+\subsection{MATLAB 3D Plots}
 
 To prove the results of the algorithm provided in section \ref{section:depthmap}, MATLAB was used for making a 3D plot of the fish. (See figure \ref{fig:3D_plot_63} and \ref{fig:3D_plot_87}). The MATLAB plots used the depthmaps inverted intensity values when plotting. This means that the values along the axis has no real depth value, just an intensity value between 0-255.\cite{website:mathworks_meshgrid}
 
@@ -157,7 +157,7 @@ Another note about the MATLAB plot is the fact that one wrong pixel shows of rea
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Color Data preservation}
+\subsection{Color Data Preservation}
 
 To ensure that the correct color data from the depthmap is not changed in the enhanced depthmap, a MATLAB plot is provided for one row of the depthmap along the fish. See figure \ref{fig:sectional} and \ref{fig:row_plot}. This plot shows the intensity values from the depthmap images, the original (red line) and the enhanced (blue line). The fish's head is to the right and its tale to the left. From the red line it is easy to see that most error on the original depthmap is found at the tail and the head, while the color data along the middle of the fish is reasonable. From figure \ref{fig:plot1} it is also seen that the correct color data is preserved and that the added data for the "holes" is within reason. It is though clear that there is still room for improvement for filling in color data at the head and tail. 
 The row represented is chosen because of its bad base values in the original depthmap, so it represents one of the worst outcomes.
