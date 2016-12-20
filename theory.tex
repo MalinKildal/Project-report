@@ -32,7 +32,7 @@ Below follows some other spatial filters.
 
 
 \subsubsection{Median Filter}
-The median filter is a nonlinear digital filtering technique used to remove noise while preserving edges in the image. The median filter algorithm runs through each pixel in the image and replaces the value with the median of neighboring pixel values. The neighboring pixels is located in a square neighborhood around the evaluated pixel. Each channel of a multi-channel image is normally processed independently.\cite{book:digital_image_processing}\cite{website:wiki_median_filter}\cite{book:machine_vision}
+The median filter is a nonlinear digital filtering technique used to remove noise while preserving edges in the image. The median filter algorithm runs through each pixel in the image and replaces the value with the median of neighboring pixel values. The neighboring pixels are located in a square neighborhood around the evaluated pixel. Each channel of a multi-channel image is normally processed independently.\cite{book:digital_image_processing}\cite{website:wiki_median_filter}\cite{book:machine_vision}
 
 \begin{figure}[ht]
     \centering
@@ -50,7 +50,7 @@ The median filter is a nonlinear digital filtering technique used to remove nois
     \label{fig:median_filter}
 \end{figure}
 
-It is seen from the images in figure \ref{fig:median_filter} that both the background and all patterns on the fish are smoothed out, while the edges are preserved. Small particles is also removed; for example it is possible to see that some of the white reflections on the bottom of the image are gone and that all the black spots on the fish are blurred out. 
+It is seen from the images in figure \ref{fig:median_filter} that both the background and all patterns on the fish are smoothed out, while the edges are preserved. Small particles are also removed; for example it is possible to see that some of the white reflections on the bottom of the image are gone and that all the black spots on the fish are blurred out. 
 The median filter used on this image was filtered 2 times in a row. When filtering several times in a row instead of increasing the kernel size the image will not get as blurry while small particles are still removed.
 
 
@@ -74,7 +74,7 @@ The bilateral filter is, just as the median filter, a nonlinear digital filter u
     \label{fig:bilateral_filter}
 \end{figure}
 
-From figure \ref{fig:bilateral_filter} it is possible to see that the edges and most detail on the fish are well preserved while small imperfections are blurred out. This filter also increases the intensity of the image. This image was also filtered several times in a row instead of using a larger kernel size.
+From figure \ref{fig:bilateral_filter} it is possible to see that the edges and most details on the fish are well preserved while small imperfections are blurred out. This filter also increases the intensity of the image. This image was also filtered several times in a row instead of using a larger kernel size.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -151,8 +151,8 @@ Morphological operators are useful for separating objects from each other, or me
 \subsubsection{Dilate and Erode}
 The most basic morphological operators are dilation and erosion. These operators also make the base for all morphological operators. On gray-scale images dilation will add pixels on white object boundaries, while erosion will add pixels on black object boundaries. Dealing with multi-channel images, each channel is normally processed independently. Dilation and erosion is defined as follows:
 \begin{itemize}
-    \item Dilation: The value of the output pixel is the \textit{maximum} value of all pixels in the input pixels neighborhood.\cite{website:mathworks_morphology} 
-    \item Erosion: The value of the output pixel is the \textit{minimum} value of all pixels in the input pixels neighborhood.\cite{website:mathworks_morphology}
+    \item \textbf{Dilation}: The value of the output pixel is the \textit{maximum} value of all pixels in the input pixels neighborhood.\cite{website:mathworks_morphology} 
+    \item \textbf{Erosion}: The value of the output pixel is the \textit{minimum} value of all pixels in the input pixels neighborhood.\cite{website:mathworks_morphology}
 \end{itemize}
 
 Figure \ref{fig:star_dilate_erode} shows an example of dilation and erosion on a simple binary image, and figure \ref{fig:nemo} shows how dilation and erosion modifies a color image.
@@ -234,19 +234,19 @@ Opening and closing assumes bright objects on a dark background. When opening an
 
 \subsection{Thresholding}
 
-Thresholding is a simple image segmentation method. It is mostly used on grayscale images to obtain a binary image. In its simples form it replaces each pixel with black if the the intensity is less than some fixed threshold value, and with white if the intensity is above the threshold value. This form of thresholding is called global thresholding.\cite{website:thresholding}\cite{website:wiki_threshold}
+Thresholding is a simple image segmentation method. It is mostly used on grayscale images to obtain a binary image. In its simplest form it replaces each pixel with black if the the intensity is less than some fixed threshold value, and with white if the intensity is above the threshold value. This form of thresholding is called global thresholding.\cite{website:thresholding}\cite{website:wiki_threshold}
 The threshold value can be set manually, or chosen by the computer, depending on the threshold method used. 
 
 Thresholding is mostly used to detect brighter objects from the darker background background, or opposite, detect darker objects from the lighter background.
-From this, it is easy to understand that the global thresholding method is not optimal for images where the background color varies between being darker and brighter than the object.
+From this, it is easy to understand that the global thresholding method is not optimal for images where the background color varies between being darker and brighter than parts of the object.
 Luckily, for solving problems like this, more advanced thresholding methods do exist.
 
 
 \subsubsection{Adaptive Thresholding}
 Sometimes the intensity of both the object and the background changes rapidly throughout the image. This makes it hard to set a threshold value that holds for the entire image. In these situations local thresholding is the solution. Local (adaptive) thresholding runs through each pixel and chooses a threshold value based on each pixel's neighborhood. How the threshold value for each pixel is chosen is for the user to decide, but most common is the median value or the Gaussian mean value of the neighborhood.
-
-Deciding which method to use depends all on the type of image. With clear differences between the object and the background, global thresholding is preferred. If the background color varies, or if the object detected is a contour, lines or text, adaptive threshold performs better.
 \newline
+
+Deciding which method to use all depends on the type of image. With clear differences between the object and the background, global thresholding is preferred. If the background color varies, or if the object detected is a contour, lines or text, adaptive threshold performs better.
 
 Figure \ref{fig:fish_threshold} shows an example of both global and adaptive thresholding. If the task is to detect the whole fish, and the fish only, it is clear to see that global thresholding performs better than adaptive thresholding. If the task was to get the contour of the object, adaptive thresholding would be better. 
 

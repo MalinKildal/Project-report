@@ -11,7 +11,7 @@ As explained earlier, the Raytrix needs to be attached to a computer with the Ra
 However, the color depthmap is intuitive to work with, as it is clear to see the object's shape based on colors.
 
 There was also some existing implementation for improving the color depthmap. One of these implementations evolved around interpolation algorithms. This was way too slow and did not give sufficient results, as the colors along the fish were not evenly distributed.  
-Another implementation used simple filtering methods to remove particles too close or too far away from the object. For filling in missing color data an averaging filter was used. Also, the largest contour in the image was found, and the rest removed. This method was better in speed, but the results were still not sufficient. 
+Another implementation used simple filtering methods to remove particles too close or too far away from the object. For filling in missing color data an averaging filter was used. Also, the largest contour in the image was found, and the rest removed. This method was better in speed, but the results were still not sufficient. Figure \ref{fig:sealab_implementation} shows the result from this implementation.
 
 
 \begin{figure}[H]
@@ -25,7 +25,7 @@ Another implementation used simple filtering methods to remove particles too clo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Depthmap enhancement} \label{section:depthmap}
+\subsection{Depthmap Enhancement} \label{section:depthmap}
 
 The approach used to better the depthmap image is mostly based on color filtering followed by morphological closing together with object detection. 
 Color filtering is first used to remove detected particles. All data, based on its color, too close to the camera or too far behind the object is removed. This is an easy way of filtering out irrelevant data. Morphological closing is a very good operation for leveling out the color and fill the holes, and it is therefore used several times in a row on the color filtered image. The only problem is that the object will lose its original shape when run several iterations in a row. To solve this problem, an object detection algorithm was run on the color-filtered image. This algorithm finds the largest contour in the image and returns a binary mask of the contour. This mask is put on top of the morphologically closed image and makes the result.
@@ -40,7 +40,7 @@ The steps of the algorithm follows below, and the complete code can be found in 
     Color filtering was achieved by looping through each pixel in the image and setting it to black if its blue-value was too high, green-value too low or red-value too low. This removed all particles detected by the Raytrix that was too close or to far behind the object of interest, assuming the object is centered.
     
     \item \textbf{Remove small particles:}
-    Removal of small particles was achieved by the use of morphological opening. Too much opening would remove much of the object, so here there is a fine line depending on how much depth data is available on the object.
+    Removal of small particles was achieved by the use of morphological opening. Too much opening would remove much of the object, so here there is a fine line depending on how much color depth data is available on the object.
     
     \item \textbf{Find largest contour:} 
     Finding the largest contour followed these steps: 
